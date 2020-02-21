@@ -22,6 +22,6 @@ class TagUser(chattrigger.ChatTrigger):
 				return
 
 		for i in range(numberoftimes):
-			await message.channel.send(f"{persontotag.mention}, {tomessage} | {i + 1}/{numberoftimes}")
+			await message.channel.send(f"{persontotag}, {tomessage} | {i + 1}/{numberoftimes}")
 			await asyncio.sleep(2)
 		
