@@ -4,6 +4,8 @@ import discord
 #import ranking
 import aiohttp
 
+import os
+
 class Mee6LevelFetcher(chattrigger.ChatTrigger):
 	
 	async def run(self, message, trigger, client):
@@ -19,9 +21,12 @@ class Mee6LevelFetcher(chattrigger.ChatTrigger):
 
 		partcount = 1
 		
-		#try:
-		if True:
-			footer = "Note: Statistics only date back to the 17th of October 2019, with data from a short period of time in mid September of 2019."
+		try:
+		#if True:
+			if message.guild.id == int(os.environ.get("Z8GUILD")):
+				footer = "Note: Statistics only date back to the 17th of October 2019, with data from a short period of time in mid September of 2019."
+			else:
+				footer = ""
 			for c, i in enumerate(sorted(data["players"], key = lambda x: x["message_count"], reverse = True)):
 				#try:
 				#	username = message.guild.get_member(int(i["id"])).display_name
@@ -41,7 +46,7 @@ class Mee6LevelFetcher(chattrigger.ChatTrigger):
 			embed = discord.Embed(title = f"{message.guild.name} Leaderboards Part {partcount}:", description = emdescription, colour = discord.Colour.gold())
 			embed.set_footer(text = footer)
 			await message.channel.send(embed = embed)
-		#except:
-		else:
+		except:
+		#else:
 			await message.channel.send("Error: Server might not have a Mee6 Leaderboard.")
 

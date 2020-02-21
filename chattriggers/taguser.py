@@ -7,7 +7,8 @@ class TagUser(chattrigger.ChatTrigger):
 	
 	async def run(self, message, trigger, client):
 		n = message.content.split(" ")
-		persontotag = message.mentions[0]
+		#persontotag = message.mentions[0]
+		persontotag = n[1] # to allow for role tagging
 		numberoftimes = int(n[2])
 		tomessage = " ".join(n[3:])
 		#print(f"n = {n}, len(n) = {len(n)}") # debugging
