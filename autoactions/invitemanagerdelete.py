@@ -8,7 +8,13 @@ class InviteManagerDelete(autoaction.AutoAction):
 		if not message.author.id == invitemanagerid: return
 		if not len(message.embeds) > 0: return
 		#print (message.embeds[0].title)
-		if not "InviteManager is missing the permissions" in message.embeds[0].description:
-			return
-		await message.delete()
-		return True
+		triggerupon = ["InviteManager is missing the permissions", "premium subscribers"]
+		#print(message.embeds[0].description)
+		for i in triggerupon:
+			#print(i)
+			if i in message.embeds[0].description:
+				#print("yeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+				await message.delete()
+				return
+		
+		return

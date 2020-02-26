@@ -18,7 +18,7 @@ logging.basicConfig()
 
 
 
-from chattriggers import replywithdot, kkk, nouk, hoesmad, guildcreationdate, dmwc, meaning, translate, translateft, anonymessage, changenickname, getprofilepicture, taguser, killbot, say, purgechannel, mee6levelfetcher, chattriggershelpcommand, pseudoban, unpseudoban, activeusers, goodafternoon, wolframalpha, wolframalphatext, getwebfile, purgeuntilmessage, getinvitesofallguilds, addcolour, getcolour, listcolours, meaningwiktionary, purgeft
+from chattriggers import replywithdot, kkk, nouk, hoesmad, guildcreationdate, dmwc, meaning, translate, translateft, anonymessage, changenickname, getprofilepicture, taguser, killbot, say, purgechannel, mee6levelfetcher, chattriggershelpcommand, pseudoban, unpseudoban, activeusers, goodafternoon, wolframalpha, wolframalphatext, getwebfile, purgeuntilmessage, getinvitesofallguilds, addcolour, getcolour, listcolours, meaningwiktionary, purgeft, yandevquotes
 from autoactions import dmautodelete, bannedwords, puslowmode, userimagedelete, autoshadowlugia, invitemanagerdelete, chatresponse, messagelog
 from startuptasks import killswitch, startupmessage, botstatus, zionroleset, aternosnotification, voicechanneltimecounter
 from onmemberjointasks import autolimbochannel#autolimborole, limbochannelautogreet
@@ -72,6 +72,7 @@ ctriggers.append(getcolour.GetColour("Get Colour Role (,getcolour [colour role n
 ctriggers.append(listcolours.ListColours("List Colour Roles (,listcolours)", [",listcolourroles", ",listcolours", ",lc"]))
 ctriggers.append(purgeft.PurgeFT("Purge From To (,purgeft [frommessageid] [tomessageid]", [",purgeft "]))
 #ctriggers.append(meaningwiktionary.MeaningWiktionary("Word Meanings (Wiktionary) (,meaning [word]", [",meaning ", ",definition ", ",meanings "]))
+ctriggers.append(yandevquotes.YandevQuotes("Autistic Quotes from Yandere Dev (,yandevquote)", [",yandevquote", ",yanderequote", ",yanderedevquote", ",yandquote", ",ydquote", ",ydq"]))
 
 print (len(ctriggers))
 
@@ -150,11 +151,15 @@ class Client(discord.Client):
 			#if i.triggerUponOwn:
 			if isown:
 				if i.triggerUponOwn:
-					if await i.run(message, client): # if autoaction destroys the message
-						return # save cpu cycles
+					#if await i.run(message, client): # if autoaction destroys the message
+					#	return # save cpu cycles
+
+					self.loop.create_task(i.run(message, client))
 			else:
-				if await i.run(message, client):
-					return
+				#if await i.run(message, client):
+				#	return
+
+				self.loop.create_task(i.run(message, client))
 
 			#elif not message.author.id == self.user.id:
 			#	if await i.run(message, client): # if autoaction destroys the message
