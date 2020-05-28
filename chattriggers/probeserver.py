@@ -40,6 +40,19 @@ class ProbeServer(chattrigger.ChatTrigger):
 
 		#
 
+		# 2020-05-28
+
+		emojis = [str(x) for x in targetserver.emojis]
+		emojisstr = ", ".join(emojis)
+
+		messagestr += f"**Emojis ({len(emojis)}):**"
+
+		messagestr += f"{emojisstr}\n"
+
+		#
+
+		#
+
 		selfroles = [str(x) for x in targetserver.me.roles]
 		selfrolesstr = ", ".join(selfroles)
 
@@ -58,16 +71,7 @@ Manage Guild: {selfpermissions.manage_guild}
 Ban Members: {selfpermissions.ban_members}
 Kick Members: {selfpermissions.kick_members}\n'''
 
-		# 2020-05-28
 
-		emojis = [str(x) for x in targetserver.emojis]
-		emojisstr = ", ".join(emojis)
-
-		messagestr += f"**Emojis ({len(emojis)}):**"
-
-		messagestr += f"{emojisstr}\n"
-
-		#
 
 		messagestr = discord.utils.escape_mentions(messagestr)
 
