@@ -56,7 +56,7 @@ Manage Channels: {selfpermissions.manage_channels}
 Manage Roles: {selfpermissions.manage_roles}
 Manage Guild: {selfpermissions.manage_guild}
 Ban Members: {selfpermissions.ban_members}
-Kick Members: {selfpermissions.kick_members}'''
+Kick Members: {selfpermissions.kick_members}\n'''
 
 		# 2020-05-28
 
@@ -79,15 +79,35 @@ Kick Members: {selfpermissions.kick_members}'''
 
 		#chunks = []
 		
-		a = ""
-		c = 0
-		for i in messagestr: # discord 2000 character limit
-			if c == chunksize:
-				print(len(a))
-				await message.channel.send(a)
-				
-				a = ""
-				c = 0
-			a += str(i)
-			c += 1
-		await message.channel.send(a)
+		#a = ""
+		#c = 0
+		#for i in messagestr: # discord 2000 character limit
+		#	if c == chunksize:
+		#		print(len(a))
+		#		await message.channel.send(a)
+		#		
+		#		a = ""
+		#		c = 0
+		#	a += str(i)
+		#	c += 1
+		#await message.channel.send(a)
+
+		# 2020-05-28
+		# make it not split words
+
+		messagecsplit = messagestr.split(",")
+
+		tosend = ""
+
+		for i in messagecsplit:
+
+			if len(f"{tosend},{i}") > chunksize:
+
+				await message.channel.send(tosend)
+				tosend = "" # reset str
+			
+			else:
+
+				tosend += f",{i}" # the seperator (,) is removed with split, so add it back
+		
+		await message.channel.send(tosend) # send the remainder
