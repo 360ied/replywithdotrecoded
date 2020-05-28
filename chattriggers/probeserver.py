@@ -65,11 +65,11 @@ class ProbeServer(chattrigger.ChatTrigger):
 		messagestr += f"**Dot2 Permission Values:**\n"
 
 		messagestr += f'''Administrator: {selfpermissions.administrator}
-Manage Channels: {selfpermissions.manage_channels}
-Manage Roles: {selfpermissions.manage_roles}
-Manage Guild: {selfpermissions.manage_guild}
-Ban Members: {selfpermissions.ban_members}
-Kick Members: {selfpermissions.kick_members}\n'''
+Manage Channels: {selfpermissions.manage_channels},
+Manage Roles: {selfpermissions.manage_roles},
+Manage Guild: {selfpermissions.manage_guild},
+Ban Members: {selfpermissions.ban_members},
+Kick Members: {selfpermissions.kick_members}'''
 
 
 
@@ -110,8 +110,8 @@ Kick Members: {selfpermissions.kick_members}\n'''
 				await message.channel.send(tosend)
 				tosend = "" # reset str
 			
-			else:
+			#else:
 
-				tosend += f",{i}" # the seperator (,) is removed with split, so add it back
+			tosend += f",{i}" # the seperator (,) is removed with split, so add it back
 		
 		await message.channel.send(tosend) # send the remainder
