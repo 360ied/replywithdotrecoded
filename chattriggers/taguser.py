@@ -3,9 +3,17 @@ import os
 from persistentstorage import PersistentStorage
 import asyncio
 
+import allowuselimited
+
 class TagUser(chattrigger.ChatTrigger):
 	
 	async def run(self, message, trigger, client):
+
+
+		if not allowuselimited.allowuselimited(message.author.id, client): # 2020-05-07 realized this would be a good idea for this
+			return
+
+
 		n = message.content.split(" ")
 		#persontotag = message.mentions[0]
 		persontotag = n[1] # to allow for role tagging

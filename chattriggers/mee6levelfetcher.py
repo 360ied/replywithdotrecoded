@@ -48,5 +48,5 @@ class Mee6LevelFetcher(chattrigger.ChatTrigger):
 			await message.channel.send(embed = embed)
 		except:
 		#else:
-			await message.channel.send("Error: Server might not have a Mee6 Leaderboard.")
-
+			#await message.channel.send("Error: Server might not have a Mee6 Leaderboard.")
+			await message.channel.send("Error: Server either does not have a Mee6 leaderboard, or the leaderboard is private.") # 2020-05-10

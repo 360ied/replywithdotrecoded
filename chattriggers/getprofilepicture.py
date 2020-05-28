@@ -1,5 +1,9 @@
 import chattrigger
 
+import discord
+
+from io import BytesIO
+
 class GetProfilePicture(chattrigger.ChatTrigger):
 	
 	async def run(self, message, trigger, client):
@@ -11,5 +15,9 @@ class GetProfilePicture(chattrigger.ChatTrigger):
 			except:
 				await message.channel.send("Member not found!")
 				return
-		memberprofilepicture = member.avatar_url
-		await message.channel.send(memberprofilepicture)
+		#memberprofilepicture = member.avatar_url
+		memberprofilepictureavatarbytes = await member.avatar_url_as().read()
+		memberprofilepicturefilename = "image." + str(member.avatar_url_as()).split(".")[3].split("?")[0]
+		memberprofilepicture = discord.File(BytesIO(memberprofilepictureavatarbytes), filename = memberprofilepicturefilename)
+
+		await message.channel.send(file = memberprofilepicture)

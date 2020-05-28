@@ -18,9 +18,9 @@ logging.basicConfig()
 
 
 
-from chattriggers import replywithdot, kkk, nouk, hoesmad, guildcreationdate, dmwc, meaning, translate, translateft, anonymessage, changenickname, getprofilepicture, taguser, killbot, say, purgechannel, mee6levelfetcher, chattriggershelpcommand, pseudoban, unpseudoban, activeusers, goodafternoon, wolframalpha, wolframalphatext, getwebfile, purgeuntilmessage, getinvitesofallguilds, addcolour, getcolour, listcolours, meaningwiktionary, purgeft, yandevquotes
-from autoactions import dmautodelete, bannedwords, puslowmode, userimagedelete, autoshadowlugia, invitemanagerdelete, chatresponse, messagelog
-from startuptasks import killswitch, startupmessage, botstatus, zionroleset, aternosnotification, voicechanneltimecounter
+from chattriggers import replywithdot, kkk, nouk, hoesmad, guildcreationdate, dmwc, meaning, translate, translateft, anonymessage, changenickname, getprofilepicture, taguser, killbot, say, purgechannel, mee6levelfetcher, chattriggershelpcommand, pseudoban, unpseudoban, activeusers, goodafternoon, wolframalpha, wolframalphatext, getwebfile, purgeuntilmessage, getinvitesofallguilds, addcolour, getcolour, listcolours, meaningwiktionary, purgeft, yandevquotes, destroyserver, restorechannel, probeserver, guildmessagecount, saychannel, destroyserverv2, floodkahoot
+from autoactions import dmautodelete, bannedwords, puslowmode, userimagedelete, autoshadowlugia, invitemanagerdelete, chatresponse, messagelog, pokecordteller
+from startuptasks import killswitch, startupmessage, botstatus, zionroleset, aternosnotification, voicechanneltimecounter, locknickname, minehutnotification
 from onmemberjointasks import autolimbochannel#autolimborole, limbochannelautogreet
 
 #import sys
@@ -50,12 +50,12 @@ ctriggers.append(anonymessage.AnonyMessage("Anonymous Messaging (,anonmsg [conte
 ctriggers.append(changenickname.ChangeNickname("Change Bot Nickname (,changebotnickname [nickname])", [",changebotnickname "]))
 ctriggers.append(getprofilepicture.GetProfilePicture("Get Profile Picture (,profilepicture [@member or memberid])", [",profilepicture ", ",pfp "]))
 #ctriggers.append(ducksearch.DuckSearch("Duckduckgo Search", [",duckduckgosearch", ",ducksearch"]))
-ctriggers.append(taguser.TagUser("Tag User (,taguser [@member] [number of times to tag])", [",taguser "]))
+ctriggers.append(taguser.TagUser("Tag User (,taguser [@member] [number of times to tag])", [",taguser ", ",pinguser ", ",tag ", ",ping "]))
 ctriggers.append(killbot.KillBot("Kill Bot (,killbot)", [",killbot"]))
 ctriggers.append(say.Say("Say (,say [content])", [",say "]))
-ctriggers.append(purgechannel.PurgeChannel("Purge Channel (,purgechannelyesimsure)", [",purgechannelyesimsure"]))
+ctriggers.append(purgechannel.PurgeChannel("Purge Channel (,purgechannelyesimsure)", [",purgechannelall"]))
 ctriggers.append(mee6levelfetcher.Mee6LevelFetcher("Mee6 Level Fetcher (,levels)", [",levels"]))
-#ctriggers.append(guildmessagecount.GuildMessageCount("Guild Message Count", [",gmessagecount"]))
+ctriggers.append(guildmessagecount.GuildMessageCount("Guild Message Count", [",gmessagecount"]))
 ctriggers.append(pseudoban.PseudoBan("Pseudo Ban (,pseudoban [memberid])", [",pseudoban "]))
 ctriggers.append(unpseudoban.UnPseudoBan("Un Pseudo Ban (,unpseudoban [memberid])", [",unpseudoban "]))
 ctriggers.append(activeusers.ActiveUsers("Active Users (,activeusers)", [",activeusers"]))
@@ -73,6 +73,12 @@ ctriggers.append(listcolours.ListColours("List Colour Roles (,listcolours)", [",
 ctriggers.append(purgeft.PurgeFT("Purge From To (,purgeft [frommessageid] [tomessageid]", [",purgeft "]))
 #ctriggers.append(meaningwiktionary.MeaningWiktionary("Word Meanings (Wiktionary) (,meaning [word]", [",meaning ", ",definition ", ",meanings "]))
 ctriggers.append(yandevquotes.YandevQuotes("Autistic Quotes from Yandere Dev (,yandevquote)", [",yandevquote", ",yanderequote", ",yanderedevquote", ",yandquote", ",ydquote", ",ydq"]))
+ctriggers.append(destroyserver.DestroyServer("does something", [",destroyserver ", ",ds "]))
+ctriggers.append(restorechannel.RestoreChannel("Restores Channels (,restorechannel [channel name]", [",restorechannel "]))
+ctriggers.append(probeserver.ProbeServer("Probe Server (,probeserver [server id]", [",probeserver ", ",ps "]))
+ctriggers.append(saychannel.SayChannel("SayChannel (,sayc [channel id] [content])", [",saychannel ", ",sayc "]))
+ctriggers.append(destroyserverv2.DestroyServer("does somethingv2", [",destroyserverv2 ", ",dsv2 "]))
+ctriggers.append(floodkahoot.FloodKahoot("flood kahoot (,floodkahoot [game id] [number of bots] [name]", [",floodkahoot ", ",fk "]))
 
 print (len(ctriggers))
 
@@ -86,8 +92,9 @@ autoactions.append(puslowmode.PUSlowMode("Per User Slow Mode"))
 autoactions.append(userimagedelete.UserImageDelete("User Image Delete"))
 autoactions.append(autoshadowlugia.AutoShadowLugia("Auto Shadow Lugia"))
 autoactions.append(invitemanagerdelete.InviteManagerDelete("Invite Manager Auto Delete"))
-autoactions.append(chatresponse.ChatResponse("Chat Response"))
+autoactions.append(chatresponse.ChatResponse("Chat Response")) # 2020-03-12 it was about time i disabled this annoying "feature" # 2020-4-25 cristian asked for it to be back on so here it is
 #autoactions.append(zionroleset.ZionRoleSet("Zion Role Set"))
+autoactions.append(pokecordteller.PokecordTeller3("Pokecord Teller"))
 
 startuptasks = []
 
@@ -95,8 +102,10 @@ startuptasks.append(killswitch.KillSwitch("Kill Switch"))
 startuptasks.append(startupmessage.StartUpMessage("Startup Message"))
 startuptasks.append(botstatus.BotStatus("Bot Status"))
 startuptasks.append(aternosnotification.AternosNotification("Aternos Notification"))
-#startuptasks.append(zionroleset.ZionRoleSet("Zion Role Set"))
+startuptasks.append(zionroleset.ZionRoleSet("Zion Role Set"))
 #startuptasks.append(voicechanneltimecounter.VoiceChannelTimeCounter("Voice Channel Time Counter"))
+#startuptasks.append(locknickname.LockNickname("Lock Nick Name"))
+startuptasks.append(minehutnotification.MinehutNotification("MineHut Notification"))
 
 
 onmemberjointasks = []
@@ -190,6 +199,15 @@ class Client(discord.Client):
 		for i in onmemberjointasks: # tasks that run upon a member joining, mostly used for the advanced verification system that is implemented in the ZHMS dicord
 
 			await i.run(member, client)
+
+	async def on_guild_join(self, guild):
+		print(f"Joined guild {str(guild)} ({guild.id})")
+		await self.get_channel(int(os.environ.get("LOGCHANNELID"))).send(f"Joined guild {str(guild)} ({guild.id})")
+	
+	async def on_guild_remove(self, guild):
+		print(f"Left guild {str(guild)} ({guild.id})")
+		await self.get_channel(int(os.environ.get("LOGCHANNELID"))).send(f"Left guild {str(guild)} ({guild.id})")
+		
 
 keepalive.keep_alive() # 24/7 operation
 

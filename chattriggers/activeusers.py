@@ -9,7 +9,7 @@ class ActiveUsers(chattrigger.ChatTrigger):
 		users = []
 
 		#activetimereader = persistentstorage.PersistentStorage("Active Time Reader", int(os.getenv("ACTIVE_TIME_CHANNEL_ID")), client, ".")
-		activetime = 180 # WHAT THE FUCK WAS I DOING WHY DDID THIS NEED TO BE ADJUSTABLE
+		activetime = 180 # WHAT THE FUCK WAS I DOING WHY DDID THIS NEED TO BE ADJUSTABLE # 2020-05-01 ^ what lmao
 
 		for i in message.guild.text_channels:
 			async for j in i.history():
