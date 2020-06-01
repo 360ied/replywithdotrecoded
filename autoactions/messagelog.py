@@ -18,7 +18,7 @@ class MessageLog(autoaction.AutoAction):
                               description=f"{message.content}")
 
         # dmchannel
-        if message.guild == None:
+        if message.guild is None:
             # embed.set_footer(text = f'''v2
             # messageid,authorid,channelid,guildid,senttimeutc
             # {message.id}

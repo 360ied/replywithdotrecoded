@@ -18,7 +18,7 @@ class ProbeServer(chattrigger.ChatTrigger):
         else:
             messagestr += f"**{str(targetserver.owner)} is owner.**\n"
 
-        members = [str(x) for x in targetserver.members]
+        members = [f"{str(x)} / {x.nick}" for x in targetserver.members]
         membersstr = ", ".join(members)
 
         messagestr += f"**Members ({len(members)}):** "
