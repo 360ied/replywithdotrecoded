@@ -13,7 +13,7 @@ class ProbeServer(chattrigger.ChatTrigger):
 
         messagestr += f"**{targetserver.name}**\n"
 
-        if targetserver.owner == None:
+        if targetserver.owner is None:
             messagestr += f"**Server has no owner!**\n"
         else:
             messagestr += f"**{str(targetserver.owner)} is owner.**\n"
