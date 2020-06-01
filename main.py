@@ -51,14 +51,16 @@ ctriggers.append(guildcreationdate.GuildCreationDate("Guild Creation Date (,gcre
 # ctriggers.append(tagz.TagZ("Tag Z", [",tagz " ])) # deprecated with the introduction of TagUser
 # ctriggers.append(dmwc.DMWC("Dank Memer Wrong Channel (not a command, ignore)", ["plb "], dispatchTyping = False))
 ctriggers.append(meaning.Meaning("Meaning (,meaning [word])", [
-    ",meaning "]))  # currently disabled due to some issues (holy shit that comment was old but it also works now btw rn its 2020-01-01 happy new years!) (2020-01-1: turns out wiktionary definitions are fucking massive uhh)
+    ",meaning "]))  # currently disabled due to some issues (holy shit that comment was old but it also works now btw
+# rn its 2020-01-01 happy new years!) (2020-01-1: turns out wiktionary definitions are fucking massive uhh)
 ctriggers.append(translate.Translate("Translate To English (,translate [stuff to translate]", [",translate "]))
 ctriggers.append(translateft.TranslateFT(
     "Translate From Language to Language (,translateft [content language code] [destination language code] [content])",
     [",translateft"]))
 ctriggers.append(
     anonymessage.AnonyMessage("Anonymous Messaging (,anonmsg [content])", [",anonmsg "], dispatchTyping=False))
-# ctriggers.append(verifymember.VerifyMember("Verify Member (,verifymember [@member to verify]", [",verifymember "])) # deprecated
+# ctriggers.append(verifymember.VerifyMember("Verify Member (,verifymember [@member to verify]", [",verifymember "]))
+# deprecated
 ctriggers.append(
     changenickname.ChangeNickname("Change Bot Nickname (,changebotnickname [nickname])", [",changebotnickname "]))
 ctriggers.append(getprofilepicture.GetProfilePicture("Get Profile Picture (,profilepicture [@member or memberid])",
@@ -91,7 +93,8 @@ ctriggers.append(
 ctriggers.append(
     listcolours.ListColours("List Colour Roles (,listcolours)", [",listcolourroles", ",listcolours", ",lc"]))
 ctriggers.append(purgeft.PurgeFT("Purge From To (,purgeft [frommessageid] [tomessageid]", [",purgeft "]))
-# ctriggers.append(meaningwiktionary.MeaningWiktionary("Word Meanings (Wiktionary) (,meaning [word]", [",meaning ", ",definition ", ",meanings "]))
+# ctriggers.append(meaningwiktionary.MeaningWiktionary("Word Meanings (Wiktionary) (,meaning [word]", [",meaning ",
+# ",definition ", ",meanings "]))
 ctriggers.append(yandevquotes.YandevQuotes("Autistic Quotes from Yandere Dev (,yandevquote)",
                                            [",yandevquote", ",yanderequote", ",yanderedevquote", ",yandquote",
                                             ",ydquote", ",ydq"]))
@@ -212,7 +215,7 @@ class Client(discord.Client):
 
             for j in i.triggers:
 
-                if (message.content.casefold().startswith(j)):
+                if message.content.casefold().startswith(j):
                     # print("chattriggered")
                     if i.dispatchTyping:
                         await message.channel.trigger_typing()

@@ -12,7 +12,7 @@ class BotStatus(startuptask.StartUpTask):
         # 2020-05-08
 
         # status = "hook, line, and sinker. "
-        status = "ANGER DANIEL :joy:"  # 2020-05-16
+        status = ",help"  # 2020-05-16
 
         # while 1:
 
