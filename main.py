@@ -181,6 +181,7 @@ class Client(discord.Client):
 		if isown:
 			return # all chattriggers are not supposed to trigger upon your own messages, so the event is terminated
 		
+		#if message.author.id not in self.get_guild()
 		
 		for i in ctriggers: # chattriggers and commands
 

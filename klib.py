@@ -49,8 +49,11 @@ class Kahoot:
 		elif response.status_code == 200:
 			print('AUTHENTICATED')
 			self.authToken = response.json()["access_token"]
+			print(self.authToken)
 			return self.authToken
 		else:
+			print(f"Status Code {response.status_code}")
+			print(response.content)
 			raise KahootError('Unknown login issue')
 
 	def startGame(self):
@@ -175,7 +178,7 @@ class Kahoot:
 	async def findAnswers(self, name, exceptedAnswers=None):
 		#quizProperties = self.searchQuiz(name, exceptedAnswers)
 		quizProperties = await self.loop.run_in_executor(None, self.searchQuiz, name, exceptedAnswers) # OAIURHGEN
-		#print(quizProperties)
+		print(quizProperties)
 		answers = []
 		for question in quizProperties['questions']:
 			foundAnswer = False
@@ -186,6 +189,7 @@ class Kahoot:
 				if choice['correct'] and not foundAnswer:
 					foundAnswer = True
 					answers.append({'question': question['question'], 'index': i, 'answer': choice['answer']})
+		print(answers)
 		return answers
 
 	def checkPin(self):

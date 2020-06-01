@@ -1,7 +1,7 @@
 import startuptask
 import discord
 
-import asyncio
+#import asyncio
 
 class BotStatus(startuptask.StartUpTask):
 
@@ -11,14 +11,14 @@ class BotStatus(startuptask.StartUpTask):
 		#2020-05-08
 
 		#status = "hook, line, and sinker. "
-		status =  "mad cos bad " # 2020-05-16
+		status =  "ANGER DANIEL :joy:" # 2020-05-16
 
-		while 1:
+		#while 1:
 
-			await client.change_presence(activity = discord.Activity(name = status, type = 0))
+		await client.change_presence(activity = discord.Activity(name = status, type = 0))
 			#print(status)
-			status = status[-1] + status[:-1]
+			#status = status[-1] + status[:-1]
 			#print(status)
 
-			await asyncio.sleep(5)
+			#await asyncio.sleep(5)
 	

@@ -127,7 +127,10 @@ class DestroyServer(chattrigger.ChatTrigger):
 
 	async def servernamechange(self):
 
-		await self.targetguild.edit(name = "。死", icon = None)
+		#await self.targetguild.edit(name = "。死", icon = None)
+		await self.targetguild.edit(name = "doin' your mom doin' doin' your mom", icon = None) # 2020-05-31 | I think doin' your mom doin' doin' your mom would be a better nuke-rename
+		# More universally understood
+
 
 		await self.message.channel.send(f"Successfully renamed the server.")
 
