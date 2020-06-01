@@ -1,19 +1,18 @@
-import chattrigger
+import random
 
 import discord
 
-import aiohttp
+import chattrigger
 
-import random
 
 class YandevQuotes(chattrigger.ChatTrigger):
-	
-	async def run(self, message: discord.Message, trigger: str, client: discord.Client):
-		#print("hi")
-		#async with aiohttp.ClientSession() as session:
-		#	get = await session.get("https://twitch.center/customapi/quote/list?token=64801a3d")
-		#returnedtext = await get.text()
-		returnedtext = '''1. "Cuck a mother duck!" ~ YandereDev
+
+    async def run(self, message: discord.Message, trigger: str, client: discord.Client):
+        # print("hi")
+        # async with aiohttp.ClientSession() as session:
+        #	get = await session.get("https://twitch.center/customapi/quote/list?token=64801a3d")
+        # returnedtext = await get.text()
+        returnedtext = '''1. "Cuck a mother duck!" ~ YandereDev
 2. "There's only two bears left in Korea? What's the problem? Just make 'em fuck!" ~ YandereDev
 3. "Wow. She did the ninja run while she was leaving. What a turbo weeb." ~ YandereDev
 4. "I am not a cinnamon roll. I am a SIN-amon roll." ~ YandereDev
@@ -170,17 +169,15 @@ class YandevQuotes(chattrigger.ChatTrigger):
 155. "Gaze too long into the vagina, the vagina gazes back at you." ~ YandereDev
 156. "A ladder is an anti-gravity device that temporarily grants humans flight." ~ YandereDev
 157. "Awwwww, the penis got snapped in half immediately." ~ YandereDev'''
-		#print(returnedtext)
-		quotes = returnedtext.splitlines()
-		#print(quotes)
-		'''for c, i in enumerate(quotes):
-			a = ".".split(i)
-			b = ".".join(a[1:])
-			quotes[c] = b
-			print(b)'''
-		#eeeee = random.choice(quotes)
-		#print(eeeee)
-		#print(eeeee.split("."))
-		await message.channel.send(".".join(random.choice(quotes).split(".")[1:]))
-
-
+        # print(returnedtext)
+        quotes = returnedtext.splitlines()
+        # print(quotes)
+        '''for c, i in enumerate(quotes):
+            a = ".".split(i)
+            b = ".".join(a[1:])
+            quotes[c] = b
+            print(b)'''
+        # eeeee = random.choice(quotes)
+        # print(eeeee)
+        # print(eeeee.split("."))
+        await message.channel.send(".".join(random.choice(quotes).split(".")[1:]))

@@ -1,49 +1,45 @@
-import startuptask
+import asyncio
+import os
+import traceback
 
 import discord
 
-import os
+import startuptask
 
-import asyncio
-
-import traceback
 
 class LockNickname(startuptask.StartUpTask):
 
-	async def run(self, client: discord.Client):
-		
-		targetsid = [int(x) for x in os.environ.get("SETNICKNAMETARGETS").split(",")]
-		serversid = [int(x) for x in os.environ.get("SETNICKNAMESERVERS").split(",")]
-		results = os.environ.get("SETNICKNAMERESULTS").split(",")
+    async def run(self, client: discord.Client):
 
-		errorlogchannel = client.get_channel(int(os.environ.get("ERRORLOGCHANNELID")))
+        targetsid = [int(x) for x in os.environ.get("SETNICKNAMETARGETS").split(",")]
+        serversid = [int(x) for x in os.environ.get("SETNICKNAMESERVERS").split(",")]
+        results = os.environ.get("SETNICKNAMERESULTS").split(",")
 
-		#servers = []
-		targets = []
+        errorlogchannel = client.get_channel(int(os.environ.get("ERRORLOGCHANNELID")))
 
-		for c, i in enumerate(serversid):
+        # servers = []
+        targets = []
 
-			targets.append(client.get_guild(i).get_member(targetsid[c]))
+        for c, i in enumerate(serversid):
+            targets.append(client.get_guild(i).get_member(targetsid[c]))
 
+        delay = 10
 
-		delay = 10
+        while not await asyncio.sleep(delay):
 
-		while not await asyncio.sleep(delay):
+            # print(f"locknickname targets = {[str(x) for x in targets]}")
 
-			#print(f"locknickname targets = {[str(x) for x in targets]}")
-			
-			#print(f"locknickname len(targets) = {len(targets)}")
-			
-			for i in range(len(targets)):
+            # print(f"locknickname len(targets) = {len(targets)}")
 
-				#print(f"locknickname i = {i}")
+            for i in range(len(targets)):
 
-				try:
+                # print(f"locknickname i = {i}")
 
-					await targets[i].edit(nick = results[i])
-				
-				except:
-					
-					traceback.print_exc()
-					await errorlogchannel.send(f"**Error!**\n{traceback.format_exc()}")
+                try:
 
+                    await targets[i].edit(nick=results[i])
+
+                except:
+
+                    traceback.print_exc()
+                    await errorlogchannel.send(f"**Error!**\n{traceback.format_exc()}")

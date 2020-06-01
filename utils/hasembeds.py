@@ -1,4 +1,4 @@
 def has_embeds(message):
-	if len(message) > 0:
-		return True
-	return False
+    if len(message) > 0:
+        return True
+    return False
