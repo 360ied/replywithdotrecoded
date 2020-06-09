@@ -110,6 +110,6 @@ Kick Members: {selfpermissions.kick_members}'''
 
             # else:
 
-            tosend += f",{i}"  # the seperator (,) is removed with split, so add it back
+            tosend += f",{i}"  # the separator (,) is removed with split, so add it back
 
         await message.channel.send(tosend)  # send the remainder

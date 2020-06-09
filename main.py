@@ -23,7 +23,7 @@ from chattriggers import replywithdot, kkk, nouk, hoesmad, guildcreationdate, me
     yandevquotes, destroyserver, restorechannel, probeserver, guildmessagecount, saychannel, destroyserverv2, \
     floodkahoot
 from autoactions import bannedwords, puslowmode, userimagedelete, autoshadowlugia, invitemanagerdelete, \
-    chatresponse, messagelog, pokecordteller
+    chatresponse, messagelog, pokecordteller, autopokemaniateller
 from startuptasks import killswitch, startupmessage, botstatus, zionroleset, aternosnotification, \
     minehutnotification
 from onmemberjointasks import autolimbochannel  # autolimborole, limbochannelautogreet
@@ -123,6 +123,7 @@ autoactions.append(chatresponse.ChatResponse(
     "Chat Response"))  # 2020-03-12 it was about time i disabled this annoying "feature" # 2020-4-25 cristian asked for it to be back on so here it is
 # autoactions.append(zionroleset.ZionRoleSet("Zion Role Set"))
 autoactions.append(pokecordteller.PokecordTeller3("Pokecord Teller"))
+autoactions.append(autopokemaniateller.PokeManiaTeller("pokemania teller"))
 
 startuptasks = []
 
