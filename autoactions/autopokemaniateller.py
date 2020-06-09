@@ -11,34 +11,20 @@ import autoaction
 
 # import aiohttp
 
+import discord
 
+
+# TODO: Fix this trash code
 class PokeManiaTeller(autoaction.AutoAction):
 
-    async def run(self, message, client):
+    async def run(self, message: discord.Message, client):
         # print("ran")
         pokemaniaid = 627952266455941121
         ownerid = int(os.environ.get("OWNER_ID"))
         testing = 0
-        if not testing:  # testing is a bit hard, cus pokecord only spawns pokemon when you dont want it to
-
-            if not (message.author.id == pokemaniaid) and not testing:  # if message is from pokecord
-                return False
-            if not (len(message.embeds) > 0) and not testing:  # if message has embeds
-                return False
-            #print(message.embeds[
-            #          0].title)  # actually really useful, and hella cool, tells you when users are blacklisted, when people catch stuff, etc
-            #print(message.embds[0].description)
-            if not (message.embeds[0].footer ==
-                    "Use PokéBalls to catch it!"):  # ok we actually only want to respond to a wild pokemon stuff so
-                return False
-        if not testing:
-
-            imageurl = message.embeds[0].image.url
-        elif message.author.id == ownerid:
-            print("owner trigger")
-            imageurl = message.content
-        else:
+        if not message.author.id == pokemaniaid:
             return
+        imageurl = message.embeds[0].image.url
         print(imageurl)
         self.imageurl = imageurl
 
