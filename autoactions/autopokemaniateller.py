@@ -25,10 +25,11 @@ class PokeManiaTeller(autoaction.AutoAction):
                 return False
             if not (len(message.embeds) > 0) and not testing:  # if message has embeds
                 return False
-            print(message.embeds[
-                      0].title)  # actually really useful, and hella cool, tells you when users are blacklisted, when people catch stuff, etc
-            if not (message.embeds[0].description.startswith(
-                    "**A wild Pokémon has appeared!")):  # ok we actually only want to respond to a wild pokemon stuff so
+            #print(message.embeds[
+            #          0].title)  # actually really useful, and hella cool, tells you when users are blacklisted, when people catch stuff, etc
+            #print(message.embds[0].description)
+            if not (message.embeds[0].footer ==
+                    "Use PokéBalls to catch it!"):  # ok we actually only want to respond to a wild pokemon stuff so
                 return False
         if not testing:
 
