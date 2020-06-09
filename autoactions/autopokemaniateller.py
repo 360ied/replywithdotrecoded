@@ -27,8 +27,8 @@ class PokeManiaTeller(autoaction.AutoAction):
                 return False
             print(message.embeds[
                       0].title)  # actually really useful, and hella cool, tells you when users are blacklisted, when people catch stuff, etc
-            if not (message.embeds[0].title.startswith(
-                    "‌‌A wild pokémon has аppeаred!")):  # ok we actually only want to respond to a wild pokemon stuff so
+            if not (message.embeds[0].description.startswith(
+                    "**A wild Pokémon has appeared!")):  # ok we actually only want to respond to a wild pokemon stuff so
                 return False
         if not testing:
 
