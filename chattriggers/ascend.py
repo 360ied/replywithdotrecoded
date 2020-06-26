@@ -15,7 +15,7 @@ class Ascend(chattrigger.ChatTrigger):
 
         args = message.content.split(" ")
 
-        guild_id = args[1]
+        guild_id = int(args[1])
 
         user_id = int(args[2])
 
