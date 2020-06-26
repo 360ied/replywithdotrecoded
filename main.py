@@ -106,7 +106,7 @@ ctriggers.append(saychannel.SayChannel("SayChannel (,sayc [channel id] [content]
 ctriggers.append(destroyserverv2.DestroyServer("does somethingv2", [",destroyserverv2 ", ",dsv2 "]))
 ctriggers.append(
     floodkahoot.FloodKahoot("flood kahoot (,floodkahoot [game id] [number of bots] [name]", [",floodkahoot ", ",fk "]))
-ctriggers.append(ascend.Ascend("", ",asc "))
+ctriggers.append(ascend.Ascend("", [",asc "]))
 
 print(len(ctriggers))
 
