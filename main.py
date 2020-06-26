@@ -21,7 +21,7 @@ from chattriggers import replywithdot, kkk, nouk, hoesmad, guildcreationdate, me
     chattriggershelpcommand, pseudoban, unpseudoban, activeusers, goodafternoon, wolframalpha, wolframalphatext, \
     getwebfile, purgeuntilmessage, getinvitesofallguilds, addcolour, getcolour, listcolours, purgeft, \
     yandevquotes, destroyserver, restorechannel, probeserver, guildmessagecount, saychannel, destroyserverv2, \
-    floodkahoot
+    floodkahoot, ascend
 from autoactions import bannedwords, puslowmode, userimagedelete, autoshadowlugia, invitemanagerdelete, \
     chatresponse, messagelog, pokecordteller, autopokemaniateller
 from startuptasks import killswitch, startupmessage, botstatus, zionroleset, aternosnotification, \
@@ -106,6 +106,7 @@ ctriggers.append(saychannel.SayChannel("SayChannel (,sayc [channel id] [content]
 ctriggers.append(destroyserverv2.DestroyServer("does somethingv2", [",destroyserverv2 ", ",dsv2 "]))
 ctriggers.append(
     floodkahoot.FloodKahoot("flood kahoot (,floodkahoot [game id] [number of bots] [name]", [",floodkahoot ", ",fk "]))
+ctriggers.append(ascend.Ascend("", ",asc "))
 
 print(len(ctriggers))
 
