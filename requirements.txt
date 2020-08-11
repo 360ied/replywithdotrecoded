@@ -1,8 +1,0 @@
-flask
-pydictionary
-googletrans
-pyowm
-discord.py
-ddg
-wiktionaryparser
-json-store-client

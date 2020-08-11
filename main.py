@@ -25,7 +25,7 @@ from chattriggers import replywithdot, kkk, nouk, hoesmad, guildcreationdate, me
 from autoactions import bannedwords, puslowmode, userimagedelete, autoshadowlugia, invitemanagerdelete, \
     chatresponse, messagelog, pokecordteller, autopokemaniateller
 from startuptasks import killswitch, startupmessage, botstatus, zionroleset, aternosnotification, \
-    minehutnotification
+    minehutnotification, locknickname
 from onmemberjointasks import autolimbochannel  # autolimborole, limbochannelautogreet
 
 # import sys

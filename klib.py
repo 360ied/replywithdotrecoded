@@ -141,7 +141,7 @@ class Kahoot:
             title = quiz['card']['title']
             if title == name:
                 url = f'https://create.kahoot.it/rest/kahoots/{quiz["card"]["uuid"]}'
-                resp = self.client.get(url, headers={'Authorization': f'Bearer {self.authToken}'})
+                resp = self.client.get(url, headers={'Authorization': f'Bearer {self.authToken}'})  
                 if resp.status_code == 400:
                     raise KahootError("Invalid UUID.")
                 if resp.status_code != 200:
